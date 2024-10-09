@@ -1,5 +1,4 @@
 const { Exchange, User, Skill, TimeCredit, UserSkill, Review } = require('../models/associations');
-const blockchainService = require('./blockchainService');
 const reputationService = require('./reputationService');
 const NotificationService = require('./notificationService');
 const { Op } = require('sequelize');
@@ -343,16 +342,15 @@ class ExchangeService {
    */
   async updateSkillProficiency(userId, skillId, rating) {
     const userSkill = await UserSkill.findOne({ where: { userId, skillId } });
-
+  
     if (!userSkill) {
       throw new Error('User does not have this skill');
     }
-
+  
     const proficiencyChange = (rating - 3) * 0.1;
     userSkill.proficiency = Math.max(0, Math.min(5, userSkill.proficiency + proficiencyChange));
     await userSkill.save();
-
-    await blockchainService.updateSkillNFT(userId, skillId, userSkill.proficiency);
+  
   }
 
   /**
@@ -392,13 +390,16 @@ class ExchangeService {
   async transferTimeCredits(fromUserId, toUserId, amount) {
     const fromUserCredits = await TimeCredit.findOne({ where: { userId: fromUserId } });
     const toUserCredits = await TimeCredit.findOne({ where: { userId: toUserId } });
-
+  
+    if (fromUserCredits.lockedBalance < amount) {
+      throw new Error('Insufficient locked balance for transfer');
+    }
+  
     fromUserCredits.lockedBalance -= amount;
     toUserCredits.balance += amount;
-
+  
     await Promise.all([fromUserCredits.save(), toUserCredits.save()]);
-
-    await blockchainService.recordTimeCreditsTransfer(fromUserId, toUserId, amount);
+  
   }
 
   /**
