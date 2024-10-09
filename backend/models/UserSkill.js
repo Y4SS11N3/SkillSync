@@ -1,65 +1,46 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database/connection');
-const bcrypt = require('bcryptjs');
 
-class User extends Model {
-  async comparePassword(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
-  }
-}
+class UserSkill extends Model {}
 
-User.init({
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
+UserSkill.init({
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true
+    references: {
+      model: 'Users',
+      key: 'id'
     }
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
+  skillId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Skills',
+      key: 'id'
+    }
   },
-  bio: {
+  proficiencyLevel: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1,
+      max: 5
+    }
+  },
+  description: {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  latitude: {
-    type: DataTypes.FLOAT,
-    allowNull: true
-  },
-  longitude: {
-    type: DataTypes.FLOAT,
-    allowNull: true
-  },
-  timeCredits: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
-  reputation: {
-    type: DataTypes.FLOAT,
-    defaultValue: 0
-  },
-  previousTimeCredits: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0
-  },
-  initialSetupComplete: {
+  isInterested: {
     type: DataTypes.BOOLEAN,
+    allowNull: false,
     defaultValue: false
-  },
-  avatar: {
-    type: DataTypes.STRING,
-    allowNull: true
   }
 }, {
   sequelize,
-  modelName: 'User',
+  modelName: 'UserSkill',
+  tableName: 'UserSkills'
 });
 
-module.exports = User;
+module.exports = UserSkill;
