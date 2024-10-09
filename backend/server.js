@@ -333,12 +333,14 @@ app.use((err, req, res, next) => {
 sequelize
   .authenticate()
   .then(() => {
+    console.log('Database connection established.');
     setupAssociations();
     return sequelize.sync();
   })
   .then(() => {
     const PORT = process.env.PORT || 5000;
     server.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((error) => {
