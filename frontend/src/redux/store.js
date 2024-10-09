@@ -6,6 +6,7 @@ import exchangeReducer from './reducers/exchangeReducer';
 import dashboardReducer from './reducers/dashboardReducer';
 import notificationReducer from './reducers/notificationReducer';
 import chatReducer from './reducers/chatReducer';
+import liveExchangeReducer from './reducers/liveExchangeReducer';
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     dashboard: dashboardReducer,
     notifications: notificationReducer,
     chat: chatReducer,
+    liveExchange: liveExchangeReducer,
   },
 });
