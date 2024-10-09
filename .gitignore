@@ -1,0 +1,21 @@
+# Dependencies
+/node_modules
+/frontend/node_modules
+/backend/node_modules
+
+# Production build files
+/frontend/build
+
+# Environment variables
+.env
+
+# Cache directories
+.cache
+.npm
+
+# Debug logs
+debug.log
+
+# Dependency lock files
+# package-lock.json
+# yarn.lock
