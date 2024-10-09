@@ -5,6 +5,7 @@ import skillReducer from './reducers/skillReducer';
 import exchangeReducer from './reducers/exchangeReducer';
 import dashboardReducer from './reducers/dashboardReducer';
 import notificationReducer from './reducers/notificationReducer';
+import chatReducer from './reducers/chatReducer';
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     exchanges: exchangeReducer,
     dashboard: dashboardReducer,
     notifications: notificationReducer,
+    chat: chatReducer,
   },
 });
