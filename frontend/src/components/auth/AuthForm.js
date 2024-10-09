@@ -264,7 +264,7 @@ const AuthForm = () => {
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006699] dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       placeholder="••••••••"
                     />
-<button
+                    <button
                       type="button"
                       className="absolute inset-y-0 right-0 pr-3 flex items-center top-6"
                       onClick={() => setShowPassword(!showPassword)}
