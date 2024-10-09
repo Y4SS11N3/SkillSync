@@ -1,5 +1,4 @@
 const { User, Skill, UserSkill, Reputation, TimeCredit } = require('../models/associations');
-const logger = require('../utils/logger');
 const path = require('path');
 const fs = require('fs').promises;
 
