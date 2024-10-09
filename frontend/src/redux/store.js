@@ -3,6 +3,7 @@ import authReducer from './reducers/authReducer';
 import userReducer from './reducers/userReducer';
 import skillReducer from './reducers/skillReducer';
 import exchangeReducer from './reducers/exchangeReducer';
+import dashboardReducer from './reducers/dashboardReducer';
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     user: userReducer,
     skills: skillReducer,
     exchanges: exchangeReducer,
+    dashboard: dashboardReducer,
   },
 });
