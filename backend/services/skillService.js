@@ -1,5 +1,4 @@
 const { Skill, User, Exchange, UserSkill, GlobalSkillDemand } = require('../models/associations');
-const blockchainService = require('./blockchainService');
 const { Sequelize, Op } = require('sequelize');
 
 /**
