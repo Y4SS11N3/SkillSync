@@ -1,5 +1,4 @@
 const { User, Skill, UserSkill, Reputation, TimeCredit } = require('../models/associations');
-const blockchainService = require('./blockchainService');
 const matchingService = require('./matchingService');
 const logger = require('../utils/logger');
 const path = require('path');
@@ -134,7 +133,6 @@ const userService = {
       proficiency
     });
 
-    await blockchainService.tokenizeSkill(userId, skill.id, proficiency);
     await matchingService.updateUserSkillData(userId);
 
     return { id: skill.id, name: skill.name, proficiency };
@@ -161,7 +159,6 @@ const userService = {
     userSkill.proficiency = proficiency;
     await userSkill.save();
 
-    await blockchainService.updateSkillToken(userId, skillId, proficiency);
     await matchingService.updateUserSkillData(userId);
 
     const skill = await Skill.findByPk(skillId);
@@ -185,7 +182,6 @@ const userService = {
       throw new Error('Skill not found for this user');
     }
 
-    await blockchainService.removeSkillToken(userId, skillId);
     await matchingService.updateUserSkillData(userId);
   },
 
@@ -203,12 +199,6 @@ const userService = {
       throw new Error('Reputation not found for this user');
     }
 
-    const blockchainReputation = await blockchainService.getReputationScore(userId);
-
-    if (reputation.score !== blockchainReputation) {
-      logger.warn(`Reputation discrepancy for user ${userId}. DB: ${reputation.score}, Blockchain: ${blockchainReputation}`);
-    }
-
     return reputation;
   },
 
@@ -224,12 +214,6 @@ const userService = {
 
     if (!timeCredits) {
       throw new Error('Time credits not found for this user');
-    }
-
-    const blockchainTimeCredits = await blockchainService.getTimeCredits(userId);
-
-    if (timeCredits.balance !== blockchainTimeCredits) {
-      logger.warn(`Time credits discrepancy for user ${userId}. DB: ${timeCredits.balance}, Blockchain: ${blockchainTimeCredits}`);
     }
 
     return timeCredits;
@@ -257,19 +241,11 @@ const userService = {
       throw new Error('User not found');
     }
 
-    const blockchainSkillTokens = await blockchainService.getSkillTokens(userId);
-
-    const mergedSkillTokens = user.skills.map(skill => {
-      const blockchainToken = blockchainSkillTokens.find(token => token.skillId === skill.id);
-      return {
-        id: skill.id,
-        name: skill.name,
-        proficiency: skill.UserSkill.proficiency,
-        tokenId: blockchainToken ? blockchainToken.tokenId : null
-      };
-    });
-
-    return mergedSkillTokens;
+    return user.skills.map(skill => ({
+      id: skill.id,
+      name: skill.name,
+      proficiency: skill.UserSkill.proficiency,
+    }));
   },
 
   /**
@@ -319,10 +295,6 @@ const userService = {
       userSkill.proficiency,
       challengeResponse
     );
-
-    if (verificationResult.success) {
-      await blockchainService.updateSkillTokenVerification(userId, skillId, true);
-    }
 
     return verificationResult;
   },
