@@ -82,14 +82,6 @@ const MySkills = () => {
   }, [user, selectedSkill]);
 
   useEffect(() => {
-    console.log('trendingSkillsData changed:', trendingSkillsData);
-  }, [trendingSkillsData]);
-
-  useEffect(() => {
-    console.log('Formatted available skills:', formattedAvailableSkills);
-  }, [formattedAvailableSkills]);
-
-  useEffect(() => {
     const handleOutsideClick = (event) => {
       if (componentRef.current && !componentRef.current.contains(event.target)) {
         setSelectedSkill(null);
