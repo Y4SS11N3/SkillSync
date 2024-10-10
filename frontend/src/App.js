@@ -10,8 +10,8 @@ import AuthForm from './components/auth/AuthForm';
 import ConditionalFooter from './components/Footer/ConditionalFooter';
 import ConditionalHeader from './components/Header/ConditionalHeader';
 import AuthCheck from './components/auth/AuthCheck';
-import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './pages/Dashboard';
+import Exchange from './pages/Exchange';
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -29,17 +29,14 @@ function App() {
                 <ConditionalSidebar />
                 <main className="flex-grow">
                   <Routes>
+                    {/* Public routes */}
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<AuthForm />} />
                     <Route path="/register" element={<AuthForm />} />
-                    <Route 
-                      path="/dashboard" 
-                      element={
-                        <PrivateRoute>
-                          <Dashboard />
-                        </PrivateRoute>
-                      } 
-                    />
+                    
+                    {/* Protected routes */}
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/exchange" element={<Exchange />} />
                   </Routes>
                 </main>
               </div>
