@@ -17,10 +17,15 @@ import ExchangeSessions from './pages/ExchangeSessions';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 import LiveExchange from './pages/LiveExchange';
+import InitialSetup from './pages/InitialSetup';
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
 
+/**
+ * Main App component
+ * @returns {JSX.Element} The main application structure
+ */
 function App() {
   return (
     <Provider store={store}>
@@ -49,6 +54,7 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/live-exchange/:exchangeId" element={<LiveExchange />} />
                     <Route path="/live-exchange/:sessionId/:token" element={<LiveExchange />} />
+                    <Route path="/initial-setup" element={<InitialSetup />} />
                   </Routes>
                 </main>
               </div>
