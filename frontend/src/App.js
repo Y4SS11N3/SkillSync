@@ -16,6 +16,7 @@ import MySkills from './pages/MySkills';
 import ExchangeSessions from './pages/ExchangeSessions';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
+import LiveExchange from './pages/LiveExchange';
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -46,6 +47,8 @@ function App() {
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/chat/:exchangeId" element={<Chat />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/live-exchange/:exchangeId" element={<LiveExchange />} />
+                    <Route path="/live-exchange/:sessionId/:token" element={<LiveExchange />} />
                   </Routes>
                 </main>
               </div>
