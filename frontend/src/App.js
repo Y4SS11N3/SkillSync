@@ -7,6 +7,8 @@ import AuthForm from './components/auth/AuthForm';
 import ConditionalFooter from './components/Footer/ConditionalFooter';
 import ConditionalHeader from './components/Header/ConditionalHeader';
 import AuthCheck from './components/auth/AuthCheck';
+import PrivateRoute from './components/PrivateRoute';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -20,6 +22,14 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<AuthForm />} />
               <Route path="/register" element={<AuthForm />} />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <PrivateRoute>
+                    <Dashboard />
+                  </PrivateRoute>
+                } 
+              />
             </Routes>
           </main>
           <ConditionalFooter />
