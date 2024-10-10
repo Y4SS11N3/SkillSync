@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard';
 import Exchange from './pages/Exchange';
 import MySkills from './pages/MySkills';
 import ExchangeSessions from './pages/ExchangeSessions';
+import Chat from './pages/Chat';
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -41,6 +42,8 @@ function App() {
                     <Route path="/exchange" element={<Exchange />} />
                     <Route path="/my-skills" element={<MySkills />} />
                     <Route path="/exchange-sessions" element={<ExchangeSessions />} />
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/chat/:exchangeId" element={<Chat />} />
                   </Routes>
                 </main>
               </div>
