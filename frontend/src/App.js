@@ -13,6 +13,7 @@ import AuthCheck from './components/auth/AuthCheck';
 import Dashboard from './pages/Dashboard';
 import Exchange from './pages/Exchange';
 import MySkills from './pages/MySkills';
+import ExchangeSessions from './pages/ExchangeSessions';
 
 // Initialize QueryClient
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/exchange" element={<Exchange />} />
                     <Route path="/my-skills" element={<MySkills />} />
+                    <Route path="/exchange-sessions" element={<ExchangeSessions />} />
                   </Routes>
                 </main>
               </div>
